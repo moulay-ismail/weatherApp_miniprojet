@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.weatherapp_miniprojet">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp_miniprojet"
         android:usesCleartextTraffic="true">
+        <activity android:name=".VilleFavorie"></activity>
         <!-- usesCleartextTraffic :  Déclarez que cette application peut utiliser du trafic en texte clair, tel que HTTP plutôt que HTTPS; -->
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -3,6 +3,7 @@ package com.example.weatherapp_miniprojet;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     Typeface weatherFont;
     static String latitude;
     static String longitude;
+    Button btnVille;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,15 @@ public class MainActivity extends AppCompatActivity {
                     humidityField = findViewById(R.id.humidity_field);
                     pressureField = findViewById(R.id.pressure_field);
                     weatherIcon = findViewById(R.id.weather_icon);
+                    btnVille = findViewById(R.id.btn_ville);
+
+                    btnVille.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent i1 = new Intent(getApplicationContext(), VilleFavorie.class);
+                            startActivity(i1);
+                        }
+                    });
 
                     String[] jsonData = getJSONResponse();
                     cityField.setText(jsonData[0]);
