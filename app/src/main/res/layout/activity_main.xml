@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
     android:background="@drawable/gradient"
     tools:context=".MainActivity">
     <RelativeLayout
@@ -21,99 +20,131 @@
         </Button>
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/city_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textColor="#FFFFFF"
-        android:textSize="28sp"/>
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/weather_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:textSize="90sp"/>
+        <TextView
+            android:id="@+id/weather_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"
+            android:textColor="#FFFFFF"
+            android:textSize="35sp" />
 
-    <TextView
-        android:id="@+id/currnet_temperature_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/weather_icon"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:textSize="72sp"/>
+        <TextView
+            android:id="@+id/city_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/humidity_field"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/currnet_temperature_field"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF" />
-
-    <TextView
-        android:id="@+id/pressure_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/humidity_field"
+        android:layout_below="@id/header"
         android:layout_centerInParent="true"
-        android:textColor="#FFFFFF" />
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/details_field"
+        <TextView
+            android:id="@+id/currnet_temperature_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:layout_marginLeft="25dp"
+            android:textSize="125sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pressure_field"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF" />
-    <TextView
-        android:id="@+id/updated_field"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/humidity_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/pressure_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/details_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/updated_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/details_field"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"/>
+        android:layout_below="@id/body"
+        android:layout_marginTop="55dp"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/btn_prev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:ems="20"
+            android:text="@string/prevision" />
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical">
+        android:layout_margin="15dp">
 
         <TextView
             android:id="@+id/realiser_par"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/r_alis_par"
             android:textColor="#FFFFFF"
-            android:layout_centerHorizontal="true"
-            android:text="Réalisé par : "
-            android:textSize="12sp"/>
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/realiser_par1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/realiser_par"
             android:layout_centerHorizontal="true"
+            android:text="@string/moulay_ismail"
             android:textColor="#FFFFFF"
-            android:text="Moulay Ismail"
-            android:textSize="12sp"/>
+            android:textSize="18dp" />
+
         <TextView
             android:id="@+id/realiser_par2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/realiser_par1"
             android:layout_centerHorizontal="true"
+            android:text="@string/rhiati_othmane"
             android:textColor="#FFFFFF"
-            android:text="Rhiati othmane"
-            android:textSize="12sp"/>
-
+            android:textSize="18dp" />
     </RelativeLayout>
-
-
 </RelativeLayout>
