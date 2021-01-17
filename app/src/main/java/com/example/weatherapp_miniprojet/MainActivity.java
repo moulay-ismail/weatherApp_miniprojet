@@ -3,6 +3,7 @@ package com.example.weatherapp_miniprojet;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.location.Location;
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, weatherIcon, updatedField;
     Typeface weatherFont;
+    Button prev,btnVille;
     static String latitude;
     static String longitude;
 
@@ -42,7 +46,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prev = findViewById(R.id.btn_prev);
+        btnVille = findViewById(R.id.btn_ville);
 
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent prevIntent = new Intent(getApplicationContext(),PrevisionActivity.class);
+                startActivity(prevIntent);
+            }
+        });
+        btnVille.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent villeIntent = new Intent(getApplicationContext(),VilleFavorie.class);
+                startActivity(villeIntent);
+            }
+        });
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // setFlags() : Définissez les indicateurs de la fenêtre.
         getSupportActionBar().hide();
@@ -58,42 +78,30 @@ public class MainActivity extends AppCompatActivity {
             // PackageManager.PERMISSION_GRANTED : Résultat du contrôle des autorisations: il est renvoyé par checkPermission si l'autorisation a été accordée au package donné
             return;
         }
-        mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-                if (location != null){
-                    latitude = String.valueOf(location.getLatitude());
-                    longitude = String.valueOf(location.getLongitude());
+        mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, location -> {
+            if (location != null){
+                latitude = String.valueOf(location.getLatitude());
+                longitude = String.valueOf(location.getLongitude());
 
-                    //erikflowers / weather-icons --- GitHub
-                    weatherFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/weathericons-regular-webfont.ttf");
+                //erikflowers / weather-icons --- GitHub
+                weatherFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/weathericons-regular-webfont.ttf");
 
-                    cityField = findViewById(R.id.city_field);
-                    currentTemperatureField = findViewById(R.id.currnet_temperature_field);
-                    updatedField = findViewById(R.id.updated_field);
-                    detailsFields = findViewById(R.id.details_field);
-                    humidityField = findViewById(R.id.humidity_field);
-                    pressureField = findViewById(R.id.pressure_field);
-                    weatherIcon = findViewById(R.id.weather_icon);
+                cityField = findViewById(R.id.city_field);
+                currentTemperatureField = findViewById(R.id.currnet_temperature_field);
+                updatedField = findViewById(R.id.updated_field);
+                detailsFields = findViewById(R.id.details_field);
+                humidityField = findViewById(R.id.humidity_field);
+                pressureField = findViewById(R.id.pressure_field);
+                weatherIcon = findViewById(R.id.weather_icon);
 
-                    String[] jsonData = getJSONResponse();
-                    cityField.setText(jsonData[0]);
-                    detailsFields.setText(jsonData[1]);
-                    currentTemperatureField.setText(jsonData[2]);
-                    humidityField.setText("Humidité : "+jsonData[3]);
-                    pressureField.setText("Pression : "+jsonData[4]);
-                    updatedField.setText(jsonData[5]);
-                    weatherIcon.setText(Html.fromHtml(jsonData[6]));
-
-                    System.out.println("-------------"+jsonData[0]);
-                    System.out.println("-------------"+jsonData[1]);
-                    System.out.println("-------------"+jsonData[2]);
-                    System.out.println("-------------"+"Humidity : "+jsonData[3]);
-                    System.out.println("-------------"+"Pressure : "+jsonData[4]);
-                    System.out.println("-------------"+jsonData[5]);
-                    System.out.println("-------------"+jsonData[6]);
-
-                }
+                String[] jsonData = getJSONResponse();
+                cityField.setText(jsonData[0]);
+                detailsFields.setText(jsonData[1]);
+                currentTemperatureField.setText(jsonData[2]);
+                humidityField.setText("Humidité : "+jsonData[3]);
+                pressureField.setText("Pression : "+jsonData[4]);
+                updatedField.setText(jsonData[5]);
+                weatherIcon.setText(Html.fromHtml(jsonData[6]));
             }
         });
     }

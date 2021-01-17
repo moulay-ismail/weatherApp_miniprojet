@@ -13,7 +13,7 @@
             android:onClick="addVille"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="ajouter ville"
+            android:text="Ajouter ville"
             android:textColor="@color/black"
             android:background="@android:color/transparent"
             android:layout_alignParentRight="true">
@@ -23,7 +23,7 @@
         android:id="@+id/testMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="list ville favorie"
+        android:text="la listes des villes favories"
         android:layout_centerInParent="true"
         android:textSize="30sp">
     </TextView>
@@ -32,7 +32,7 @@
         android:layout_below="@+id/testMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test de recuperation du non de ville"
+        android:text="test de recuperation du nom de ville"
         android:layout_centerInParent="true"
         android:textSize="20sp">
     </TextView>
