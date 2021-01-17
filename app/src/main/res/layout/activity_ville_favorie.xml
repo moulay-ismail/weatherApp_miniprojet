@@ -9,6 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/btn_addVille"
+            android:onClick="addVille"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ajouter ville"
@@ -18,11 +20,21 @@
         </Button>
     </RelativeLayout>
     <TextView
+        android:id="@+id/testMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="list ville favorie"
         android:layout_centerInParent="true"
         android:textSize="30sp">
+    </TextView>
+    <TextView
+        android:id="@+id/txt_name_ville"
+        android:layout_below="@+id/testMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test de recuperation du non de ville"
+        android:layout_centerInParent="true"
+        android:textSize="20sp">
     </TextView>
 
 </RelativeLayout>
