@@ -4,37 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VilleFavorie">
+    tools:context=".Activities.VilleFavorie">
+
     <RelativeLayout
+        android:id="@+id/villeHeader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient">
+
         <Button
             android:id="@+id/btn_addVille"
-            android:onClick="addVille"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ajouter ville"
-            android:textColor="@color/black"
-            android:background="@android:color/transparent"
-            android:layout_alignParentRight="true">
-        </Button>
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            android:onClick="addVille"
+            android:text="Ajouter ville"></Button>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/testMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="la listes des villes favories"
-        android:layout_centerInParent="true"
-        android:textSize="30sp">
-    </TextView>
-    <TextView
-        android:id="@+id/txt_name_ville"
-        android:layout_below="@+id/testMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test de recuperation du nom de ville"
-        android:layout_centerInParent="true"
-        android:textSize="20sp">
-    </TextView>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/villeHeader"
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/listvilles_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:divider="@drawable/gradient"
+            android:dividerHeight="2dp">
+
+        </ListView>
+    </LinearLayout>
 </RelativeLayout>

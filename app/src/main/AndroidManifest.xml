@@ -14,15 +14,15 @@
         android:theme="@style/Theme.WeatherApp_miniprojet"
         android:usesCleartextTraffic="true">
         <!-- usesCleartextTraffic :  Déclarez que cette application peut utiliser du trafic en texte clair, tel que HTTP plutôt que HTTPS; -->
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PrevisionActivity"></activity>
-        <activity android:name=".VilleFavorie"></activity>
+        <activity android:name=".Activities.PrevisionActivity"></activity>
+        <activity android:name=".Activities.VilleFavorie"></activity>
     </application>
 
 </manifest>

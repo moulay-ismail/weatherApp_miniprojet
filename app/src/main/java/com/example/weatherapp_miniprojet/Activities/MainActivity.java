@@ -1,4 +1,4 @@
-package com.example.weatherapp_miniprojet;
+package com.example.weatherapp_miniprojet.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -6,7 +6,6 @@ import androidx.core.app.ActivityCompat;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
@@ -16,9 +15,9 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.weatherapp_miniprojet.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONObject;
 
