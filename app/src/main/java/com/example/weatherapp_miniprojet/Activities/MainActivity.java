@@ -1,5 +1,6 @@
 package com.example.weatherapp_miniprojet.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -10,11 +11,15 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.weatherapp_miniprojet.R;
 import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
@@ -33,7 +38,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     public static final String IMG_URL = "https://openweathermap.org/img/w/";
     public static String iconeUrl;
@@ -113,13 +118,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.setting_temperature:
+                Toast.makeText(this, "test temperature", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.setting_vent:
+                Toast.makeText(this, "test vent", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.Apropos:
+                Toast.makeText(this, "test apropos", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
 
-
-
+    }*/
 
     //demande des autorisations
     private void requestPermissions(){
         ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION}, 1);
+    }
+
+    public void showMenu(View view) {
+
+        PopupMenu popupMenu = new PopupMenu(this,view);
+        popupMenu.setOnMenuItemClickListener(this);
+        popupMenu.inflate(R.menu.menu);
+        popupMenu.show();
+
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.temperaure_setting:
+                Toast.makeText(this, "changer unite de temperature", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.vent_setting:
+                Toast.makeText(this, "changer unite de vent", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.apropos:
+                Toast.makeText(this, "layout apropos", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 }
