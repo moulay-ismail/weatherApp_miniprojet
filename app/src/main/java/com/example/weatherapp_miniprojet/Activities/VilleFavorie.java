@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -48,7 +49,10 @@ public class VilleFavorie extends AppCompatActivity {
                 try {
                     Ville ville = new Ville(nomVilleTxt.getText().toString());
                     villeDAO.ajouterVille(ville);
-                    villeDAO.villeList();
+                    finish();
+                    Intent i1 = new Intent(getApplicationContext(), VilleFavorie.class);
+                    startActivity(i1);
+                    //villeDAO.villeList();
                     Toast.makeText(VilleFavorie.this, "Bien Ajouter", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.getStackTrace();
@@ -65,4 +69,5 @@ public class VilleFavorie extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
 }

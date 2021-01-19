@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.weatherapp_miniprojet.R;
+import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -32,10 +35,11 @@ import java.util.Locale;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class MainActivity extends AppCompatActivity {
 
-    private static final String OPEN_WEATHER_MAP_URL = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
-    private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
+    public static final String IMG_URL = "https://openweathermap.org/img/w/";
+    public static String iconeUrl;
 
-    TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, weatherIcon, updatedField;
+    TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, updatedField;
+    ImageView weatherIcon;
     Typeface weatherFont;
     Button prev,btnVille;
     static String latitude;
@@ -78,12 +82,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, location -> {
-            if (location != null){
+            if (location != null) {
                 latitude = String.valueOf(location.getLatitude());
                 longitude = String.valueOf(location.getLongitude());
-
+            }
                 //erikflowers / weather-icons --- GitHub
-                weatherFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/weathericons-regular-webfont.ttf");
+                //weatherFont = Typeface.createFromAsset(getApplicationContext().getAssets(),"fonts/weathericons-regular-webfont.ttf");
 
                 cityField = findViewById(R.id.city_field);
                 currentTemperatureField = findViewById(R.id.currnet_temperature_field);
@@ -93,116 +97,26 @@ public class MainActivity extends AppCompatActivity {
                 pressureField = findViewById(R.id.pressure_field);
                 weatherIcon = findViewById(R.id.weather_icon);
 
-                String[] jsonData = getJSONResponse();
+                String[] jsonData = HandleJSON.getJSONResponse(latitude, longitude);
                 cityField.setText(jsonData[0]);
                 detailsFields.setText(jsonData[1]);
                 currentTemperatureField.setText(jsonData[2]);
                 humidityField.setText("Humidité : "+jsonData[3]);
                 pressureField.setText("Pression : "+jsonData[4]);
                 updatedField.setText(jsonData[5]);
-                weatherIcon.setText(Html.fromHtml(jsonData[6]));
-            }
+                iconeUrl = IMG_URL+jsonData[6]+".png";
+                System.out.println("---------------------------"+iconeUrl);
+                Picasso.get().load(iconeUrl).resize(250,250).into(weatherIcon);
+
+
         });
     }
 
-    public String[] getJSONResponse(){
-        String[] jsonData =new String[7];
-        JSONObject jsonWeather = null;
-        try {
-            jsonWeather = getWeatherJSON(latitude,longitude);
-        }
-        catch (Exception e){
-            Log.d("Error", "impossible de traiter le résultat json", e);
-        }
 
-        try {
-            if(jsonWeather !=null){
-                //Recuperation des données
-                JSONObject details =jsonWeather.getJSONArray("weather").getJSONObject(0);
-                JSONObject main = jsonWeather.getJSONObject("main");
-                DateFormat df = DateFormat.getDateInstance();
 
-                String city = jsonWeather.getString("name")+", "+jsonWeather.getJSONObject("sys").getString("country");
-                String description = details.getString("description").toLowerCase(Locale.US);
-                String temperature = String.format("%.0f", main.getDouble("temp"))+"°";
-                String humidity = main.getString("humidity")+"%";
-                String pressure = main.getString("pressure")+" hPa";
-                String updateOn = df.format(new Date(jsonWeather.getLong("dt")*1000));
-                String iconeText = setWeatherIcon(details.getInt("id"),jsonWeather.getJSONObject("sys").getLong("sunrise")*1000, jsonWeather.getJSONObject("sys").getLong("sunset")*1000);
 
-                jsonData[0] = city;
-                jsonData[1] = description;
-                jsonData[2] = temperature;
-                jsonData[3] = humidity;
-                jsonData[4] = pressure;
-                jsonData[5] = updateOn;
-                jsonData[6] = iconeText;
-            }
-        }
-        catch (Exception e ){
 
-        }
-        return jsonData;
-    }
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
-        int id = actualId/100;
-        String icon = "";
-        if(actualId==800){
-            long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset){
-                icon = "&#xf00d;";
-            }else {
-                icon = "&#xf02e;";
-            }
-        }else {
-            switch (id){
-                case 2:
-                    icon = "&#xf01e;";
-                    break;
-                case 3:
-                    icon = "&#xfc01c;";
-                    break;
-                case 7:
-                    icon = "&#xf014";
-                    break;
-                case 8:
-                    icon = "&#xf013;";
-                    break;
-                case 6:
-                    icon = "&#xf01b;";
-                    break;
-                case 5:
-                    icon = "&#xf019;";
-                    break;
-            }
-        }
-        return icon;
-    }
-
-    public static JSONObject getWeatherJSON(String lat,String lon){
-        try{
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            // openConnection() : Renvoie une instance URLConnection qui représente une connexion à l'objet distant référencé par l'URL.
-            connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            StringBuffer json = new StringBuffer(1024);
-            String tmp = "";
-            while ((tmp=reader.readLine()) != null){
-                json.append(tmp).append("\n");
-            }
-            reader.close();
-            JSONObject data = new JSONObject(json.toString());
-            if (data.getInt("cod") != 200){
-                return null;
-            }
-            return data;
-        }
-        catch (Exception e){
-            return null;
-        }
-    }
 
     //demande des autorisations
     private void requestPermissions(){
