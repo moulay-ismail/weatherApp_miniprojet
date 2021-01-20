@@ -18,8 +18,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="5dp"
+            android:background="?android:attr/activatedBackgroundIndicator"
             android:onClick="addVille"
-            android:text="Ajouter ville"></Button>
+            android:text="+"></Button>
     </RelativeLayout>
 
     <LinearLayout
@@ -34,8 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:divider="@drawable/gradient"
-            android:dividerHeight="2dp">
-
-        </ListView>
+            android:dividerHeight="0.7dp"></ListView>
     </LinearLayout>
 </RelativeLayout>

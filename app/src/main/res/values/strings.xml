@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">weatherApp_miniprojet</string>
     <string name="ville">ville</string>
+    <string name="delete">Supprimer</string>
 </resources>

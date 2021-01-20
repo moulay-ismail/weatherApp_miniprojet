@@ -113,10 +113,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 System.out.println("---------------------------"+iconeUrl);
                 Picasso.get().load(iconeUrl).resize(250,250).into(weatherIcon);
 
-
         });
     }
-
 
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {

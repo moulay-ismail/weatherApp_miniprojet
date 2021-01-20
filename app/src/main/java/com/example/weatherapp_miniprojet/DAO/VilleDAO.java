@@ -47,7 +47,12 @@ public class VilleDAO extends SQLiteOpenHelper {
         values.put(NomVille, ville.getNomVille());
         database.insert(TABLE_NAME, null, values);
         database.close();
-        villeList();
+    }
+
+    public void deleteVille(Ville ville) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME + " where nom_ville='" + ville.getNomVille() + "'");
+        db.close();
     }
 
     public ArrayList<Ville> villeList() {
