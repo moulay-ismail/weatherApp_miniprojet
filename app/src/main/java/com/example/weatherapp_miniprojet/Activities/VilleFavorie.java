@@ -5,15 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,11 +28,19 @@ import com.example.weatherapp_miniprojet.DAO.VilleDAO;
 import com.example.weatherapp_miniprojet.Entities.Ville;
 import com.example.weatherapp_miniprojet.R;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VilleFavorie extends AppCompatActivity {
     private VilleAdapter villeAdapter;
     VilleDAO villeDAO;
+    ListView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +49,7 @@ public class VilleFavorie extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         villeDAO = new VilleDAO(this);
-        ListView view = findViewById(R.id.listvilles_id);
+        view = findViewById(R.id.listvilles_id);
         villeAdapter = new VilleAdapter(villeDAO.villeList(), this, R.layout.listville_custom);
         view.setAdapter(villeAdapter);
         view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -47,10 +59,9 @@ public class VilleFavorie extends AppCompatActivity {
                 // Capture total checked items
                 final int checkedCount = view.getCheckedItemCount();
                 // Set the CAB title according to total checked items
-                if(checkedCount == 1){
+                if (checkedCount == 1) {
                     mode.setTitle(checkedCount + " élément selectionné");
-                }
-                else {
+                } else {
                     mode.setTitle(checkedCount + " éléments selectionnés");
                 }
                 // Calls toggleSelection method from ListViewAdapter Class
@@ -100,20 +111,27 @@ public class VilleFavorie extends AppCompatActivity {
         });
     }
 
-    public void addVille(View view) {
+    public void addVille(View view) throws JSONException {
+        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+        View customVille_view = inflater.inflate(R.layout.addville_custom_alert, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setMessage("Nom Ville : ");
-        final EditText nomVilleTxt = new EditText(VilleFavorie.this);
-        nomVilleTxt.setInputType(InputType.TYPE_CLASS_TEXT);
-        alertDialogBuilder.setView(nomVilleTxt);
-        alertDialogBuilder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setTitle("Nouvelle Ville");
+        alertDialogBuilder.setView(customVille_view);
+        final AutoCompleteTextView nomVilleTxt = customVille_view.findViewById(R.id.nomVilleTxt);
+        //AutoComplete text
+            ArrayList<String> list = fetch();
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                    android.R.layout.select_dialog_item, list);
+            nomVilleTxt.setThreshold(1);
+            nomVilleTxt.setAdapter(arrayAdapter);
+
+            alertDialogBuilder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     Ville ville = new Ville(nomVilleTxt.getText().toString());
                     villeDAO.ajouterVille(ville);
                     refresh();
-
                     Toast.makeText(VilleFavorie.this, "Bien Ajouter", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.getStackTrace();
@@ -136,5 +154,33 @@ public class VilleFavorie extends AppCompatActivity {
         overridePendingTransition(0, 0);
         startActivity(getIntent());
         overridePendingTransition(0, 0);
+    }
+
+    private String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getApplicationContext().getAssets().open("city.list.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
+
+    private ArrayList<String> fetch() throws JSONException {
+        ArrayList<String> listdata = new ArrayList<String>();
+        JSONArray json = new JSONArray(loadJSONFromAsset());
+        for (int i = 0; i < json.length(); i++) {
+            final JSONObject e = json.getJSONObject(i);
+            if(e.getString("country").equals("MA")) {
+                listdata.add(e.getString("name"));
+            }
+        }
+        return listdata;
     }
 }

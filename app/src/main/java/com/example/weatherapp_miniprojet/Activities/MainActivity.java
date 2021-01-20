@@ -1,6 +1,5 @@
 package com.example.weatherapp_miniprojet.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -9,9 +8,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.text.Html;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -22,20 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weatherapp_miniprojet.R;
-import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
+import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
@@ -151,9 +137,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         popupMenu.setOnMenuItemClickListener(this);
         popupMenu.inflate(R.menu.menu);
         popupMenu.show();
-
     }
-
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){

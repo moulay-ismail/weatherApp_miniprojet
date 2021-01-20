@@ -1,4 +1,4 @@
-package com.example.weatherapp_miniprojet.connectAPI;
+package com.example.weatherapp_miniprojet.ConnectAPI;
 
 import android.util.Log;
 
