@@ -25,21 +25,23 @@
             android:layout_marginRight="40dp"
             android:background="?android:attr/activatedBackgroundIndicator"
             android:text="@string/ville"></Button>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="13dp"
-            android:src="@mipmap/menu6"
             android:background="@null"
-            android:onClick="showMenu">
-        </ImageButton>
+            android:onClick="showMenu"
+            android:src="@mipmap/menu6"></ImageButton>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/cityLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header">
+
         <TextView
             android:id="@+id/city_field"
             android:layout_width="wrap_content"
@@ -79,9 +81,9 @@
 
     <RelativeLayout
         android:id="@+id/body"
-        android:layout_below="@+id/iconeAndTem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/iconeAndTem"
         android:orientation="vertical">
 
         <TextView
@@ -94,39 +96,277 @@
 
         <TextView
             android:id="@+id/pressure_field"
-            android:layout_below="@+id/humidity_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/humidity_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/details_field"
-            android:layout_below="@+id/pressure_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/pressure_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/updated_field"
-            android:layout_below="@+id/details_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/details_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_centerHorizontal="true"/>
+            android:textSize="20sp" />
     </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/body"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="55dp">
-    </LinearLayout>
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="5dp">
+
+        <TextView
+            android:id="@+id/quotid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quotid."
+            android:textColor="@color/white"></TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/quotid"
+            android:background="@drawable/gradienthr" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo1"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo1"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax1"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo2"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo2"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax2"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo3"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo3"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax3"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo4"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo4"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax4"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/preMeteo5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"></TextView>
+
+                <ImageView
+                    android:id="@+id/imgMeteo5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/preMeteo5"
+                    android:layout_centerHorizontal="true"></ImageView>
+
+                <TextView
+                    android:id="@+id/tempMax5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgMeteo5"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+                <TextView
+                    android:id="@+id/tempMin5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tempMax5"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
