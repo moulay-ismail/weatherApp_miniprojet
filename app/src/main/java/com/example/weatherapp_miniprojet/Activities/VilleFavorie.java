@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weatherapp_miniprojet.Adapters.VilleAdapter;
+import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
 import com.example.weatherapp_miniprojet.DAO.VilleDAO;
 import com.example.weatherapp_miniprojet.Entities.Ville;
 import com.example.weatherapp_miniprojet.R;
@@ -41,7 +43,7 @@ public class VilleFavorie extends AppCompatActivity {
     private VilleAdapter villeAdapter;
     VilleDAO villeDAO;
     ListView view;
-
+    HandleJSON handleJSON;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +51,9 @@ public class VilleFavorie extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         villeDAO = new VilleDAO(this);
+        ArrayList<Ville> listVilles = villeDAO.villeList();
         view = findViewById(R.id.listvilles_id);
-        villeAdapter = new VilleAdapter(villeDAO.villeList(), this, R.layout.listville_custom);
+        villeAdapter = new VilleAdapter(listVilles, this, R.layout.listville_custom);
         view.setAdapter(villeAdapter);
         view.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         view.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -109,6 +112,15 @@ public class VilleFavorie extends AppCompatActivity {
                 villeAdapter.removeSelection();
             }
         });
+        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String reccuperedValue = listVilles.get(position).getNomVille();
+                Intent search = new Intent(VilleFavorie.this,MainActivity.class);
+                search.putExtra("ville",reccuperedValue);
+                startActivity(search);
+            }
+        });
     }
 
     public void addVille(View view) throws JSONException {
@@ -119,13 +131,13 @@ public class VilleFavorie extends AppCompatActivity {
         alertDialogBuilder.setView(customVille_view);
         final AutoCompleteTextView nomVilleTxt = customVille_view.findViewById(R.id.nomVilleTxt);
         //AutoComplete text
-            ArrayList<String> list = fetch();
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.select_dialog_item, list);
-            nomVilleTxt.setThreshold(1);
-            nomVilleTxt.setAdapter(arrayAdapter);
+        ArrayList<String> list = fetch();
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.select_dialog_item, list);
+        nomVilleTxt.setThreshold(1);
+        nomVilleTxt.setAdapter(arrayAdapter);
 
-            alertDialogBuilder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("Ajouter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try {
@@ -156,28 +168,13 @@ public class VilleFavorie extends AppCompatActivity {
         overridePendingTransition(0, 0);
     }
 
-    private String loadJSONFromAsset() {
-        String json = null;
-        try {
-            InputStream is = getApplicationContext().getAssets().open("city.list.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
-
     private ArrayList<String> fetch() throws JSONException {
+        handleJSON = new HandleJSON(VilleFavorie.this);
         ArrayList<String> listdata = new ArrayList<String>();
-        JSONArray json = new JSONArray(loadJSONFromAsset());
+        JSONArray json = new JSONArray(handleJSON.loadJSONFromAsset());
         for (int i = 0; i < json.length(); i++) {
             final JSONObject e = json.getJSONObject(i);
-            if(e.getString("country").equals("MA")) {
+            if (e.getString("country").equals("MA")) {
                 listdata.add(e.getString("name"));
             }
         }

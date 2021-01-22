@@ -33,8 +33,9 @@
             android:id="@+id/listvilles_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:divider="@drawable/gradient"
-            android:dividerHeight="0.7dp"></ListView>
+            android:layout_margin="20dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"
+            ></ListView>
     </LinearLayout>
 </RelativeLayout>
