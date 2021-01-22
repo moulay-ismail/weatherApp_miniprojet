@@ -15,6 +15,7 @@ import java.util.Locale;
 public class HandleJSON {
     private static final String OPEN_WEATHER_MAP_URL = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
     private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
+
     public static String[] getJSONResponse(String latitude, String longitude){
         String[] jsonData =new String[7];
         JSONObject jsonWeather = null;
@@ -56,7 +57,7 @@ public class HandleJSON {
         return jsonData;
     }
 
-    public static String setWeatherIcon(int actualId, long sunrise, long sunset){
+   /* public static String setWeatherIcon(int actualId, long sunrise, long sunset){
         int id = actualId/100;
         String icon = "";
         if(actualId==800){
@@ -89,7 +90,7 @@ public class HandleJSON {
             }
         }
         return icon;
-    }
+    }*/
 
     public static JSONObject getWeatherJSON(String lat,String lon){
         try{
