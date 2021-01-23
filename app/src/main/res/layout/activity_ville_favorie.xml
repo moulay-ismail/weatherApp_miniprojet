@@ -20,7 +20,8 @@
             android:layout_margin="5dp"
             android:background="?android:attr/activatedBackgroundIndicator"
             android:onClick="addVille"
-            android:text="+"></Button>
+            android:text="+"
+            android:textSize="30sp"></Button>
     </RelativeLayout>
 
     <LinearLayout

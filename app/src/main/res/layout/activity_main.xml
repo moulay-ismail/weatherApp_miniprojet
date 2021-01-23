@@ -135,7 +135,6 @@
             android:textSize="16sp"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
-
     <RelativeLayout
         android:id="@+id/previsionHoriare"
         android:layout_width="match_parent"
@@ -151,7 +150,6 @@
             android:layout_height="wrap_content"
             android:text="@string/horaire"
             android:textColor="@color/white"></TextView>
-
         <View
             android:layout_below="@+id/horaire"
             android:layout_width="match_parent"
@@ -163,7 +161,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp">
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -298,7 +295,6 @@
                     android:layout_below="@+id/imgHor4"
                     android:layout_centerHorizontal="true"></TextView>
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -355,7 +351,6 @@
         </LinearLayout>
 
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -370,7 +365,6 @@
             android:layout_height="wrap_content"
             android:text="Quotid."
             android:textColor="@color/white"></TextView>
-
         <View
             android:layout_below="@+id/quotid"
             android:layout_width="match_parent"
@@ -600,4 +594,39 @@
         </LinearLayout>
 
     </RelativeLayout>
+
+    <!--<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/realiser_par"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Realisé par :"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/realiser_par1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/realiser_par"
+            android:layout_centerHorizontal="true"
+            android:text="MOULAY Ismail"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/realiser_par2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/realiser_par1"
+            android:layout_centerHorizontal="true"
+            android:text="RHIATI Othmane"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+    </RelativeLayout>-->
 </RelativeLayout>
