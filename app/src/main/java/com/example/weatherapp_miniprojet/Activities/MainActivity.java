@@ -16,12 +16,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.weatherapp_miniprojet.ConnectAPI.ForecastHandleJSON;
-import com.example.weatherapp_miniprojet.ConnectAPI.ForecastHourlyHandleJSON;
-import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
 import com.example.weatherapp_miniprojet.Entities.Prevision;
 import com.example.weatherapp_miniprojet.Entities.PrevisionHoraire;
 import com.example.weatherapp_miniprojet.R;
+import com.example.weatherapp_miniprojet.connectAPI.ForecastHandleJSON;
+import com.example.weatherapp_miniprojet.connectAPI.ForecastHourlyHandleJSON;
+import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;

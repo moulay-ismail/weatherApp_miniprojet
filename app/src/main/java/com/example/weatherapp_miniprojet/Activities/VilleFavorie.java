@@ -22,10 +22,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.weatherapp_miniprojet.Adapters.VilleAdapter;
-import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
 import com.example.weatherapp_miniprojet.DAO.VilleDAO;
 import com.example.weatherapp_miniprojet.Entities.Ville;
 import com.example.weatherapp_miniprojet.R;
+import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
 
 import org.json.JSONArray;
 import org.json.JSONException;
