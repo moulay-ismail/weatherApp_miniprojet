@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,7 +18,7 @@ public class HandleJSON {
     private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
 
     public static String[] getJSONResponse(String latitude, String longitude){
-        String[] jsonData =new String[7];
+        String[] jsonData =new String[10];
         JSONObject jsonWeather = null;
         try {
             jsonWeather = getWeatherJSON(latitude,longitude);
@@ -31,6 +32,7 @@ public class HandleJSON {
                 //Recuperation des données
                 JSONObject details =jsonWeather.getJSONArray("weather").getJSONObject(0);
                 JSONObject main = jsonWeather.getJSONObject("main");
+                JSONObject wind = jsonWeather.getJSONObject("wind");
                 DateFormat df = DateFormat.getDateInstance();
 
                 String city = jsonWeather.getString("name")+", "+jsonWeather.getJSONObject("sys").getString("country");
@@ -38,9 +40,27 @@ public class HandleJSON {
                 String temperature = String.format("%.0f", main.getDouble("temp"))+"°";
                 String humidity = main.getString("humidity")+"%";
                 String pressure = main.getString("pressure")+" hPa";
-                String updateOn = df.format(new Date(jsonWeather.getLong("dt")*1000));
+                //String updateOn = df.format(new Date(jsonWeather.getLong("dt")*1000));
+                long dt = jsonWeather.getLong("dt");
+                System.out.println("----------------dt : "+dt);
+                String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date ((long)dt*1000));
+                //System.out.println("------------- date : "+date);
+                Date date1=new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(date);
+                //System.out.println("------------- date1 : "+date1);
+                DateFormat format2=new SimpleDateFormat("HH:mm");
+                String heure=format2.format(date1);
+                System.out.println("--------------heure : "+heure);
+                DateFormat format3=new SimpleDateFormat("EEEE dd MMM yyyy HH:mm");
+                String updateOn=format3.format(date1);
+                System.out.println("--------------date2 : "+updateOn);
+
                 //String iconeText = setWeatherIcon(details.getInt("id"),jsonWeather.getJSONObject("sys").getLong("sunrise")*1000, jsonWeather.getJSONObject("sys").getLong("sunset")*1000);
                 String iconeText = details.getString("icon");
+
+                int visibility = jsonWeather.getInt("visibility")/1000;
+                System.out.println("---------visibilite : "+visibility+"km");
+                double vent = wind.getDouble("speed");
+                System.out.println("-------------vent : "+vent+" km/h");
 
                 jsonData[0] = city;
                 jsonData[1] = description;
@@ -49,6 +69,9 @@ public class HandleJSON {
                 jsonData[4] = pressure;
                 jsonData[5] = updateOn;
                 jsonData[6] = iconeText;
+                jsonData[7] = heure;
+                jsonData[8] = visibility+" km";
+                jsonData[9] = vent+" km/h";
             }
         }
         catch (Exception e ){
@@ -57,46 +80,12 @@ public class HandleJSON {
         return jsonData;
     }
 
-   /* public static String setWeatherIcon(int actualId, long sunrise, long sunset){
-        int id = actualId/100;
-        String icon = "";
-        if(actualId==800){
-            long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset){
-                icon = "&#xf00d;";
-            }else {
-                icon = "&#xf02e;";
-            }
-        }else {
-            switch (id){
-                case 2:
-                    icon = "&#xf01e;";
-                    break;
-                case 3:
-                    icon = "&#xfc01c;";
-                    break;
-                case 7:
-                    icon = "&#xf014";
-                    break;
-                case 8:
-                    icon = "&#xf013;";
-                    break;
-                case 6:
-                    icon = "&#xf01b;";
-                    break;
-                case 5:
-                    icon = "&#xf019;";
-                    break;
-            }
-        }
-        return icon;
-    }*/
-
     public static JSONObject getWeatherJSON(String lat,String lon){
         try{
             URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             // openConnection() : Renvoie une instance URLConnection qui représente une connexion à l'objet distant référencé par l'URL.
+            System.out.println("url : "+connection.getURL());;
             connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             StringBuffer json = new StringBuffer(1024);

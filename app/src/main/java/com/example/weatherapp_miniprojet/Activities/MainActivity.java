@@ -22,8 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weatherapp_miniprojet.Entities.Prevision;
+import com.example.weatherapp_miniprojet.Entities.PrevisionHoraire;
 import com.example.weatherapp_miniprojet.R;
 import com.example.weatherapp_miniprojet.connectAPI.ForecastHandleJSON;
+import com.example.weatherapp_miniprojet.connectAPI.ForecastHourlyHandleJSON;
 import com.example.weatherapp_miniprojet.connectAPI.HandleJSON;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -46,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static final String IMG_URL = "https://openweathermap.org/img/w/";
     public static String iconeUrl;
 
-    TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5;
-    ImageView weatherIcon, img_meteo,img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5;
+    TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, ventField,visibiliteField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5, pre_hor, pre_hor1, pre_hor2, pre_hor3, pre_hor4, pre_hor5, pre_hor6, temp_hor, temp_hor1, temp_hor2, temp_hor3, temp_hor4, temp_hor5,temp_hor6;
+    ImageView weatherIcon, img_meteo,img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5, img_hor, img_hor1, img_hor2, img_hor3, img_hor4, img_hor5, img_hor6;
     Typeface weatherFont;
     Button prev,btnVille;
     static String latitude;
@@ -104,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 detailsFields = findViewById(R.id.details_field);
                 humidityField = findViewById(R.id.humidity_field);
                 pressureField = findViewById(R.id.pressure_field);
+                ventField = findViewById(R.id.vent_field);
+                visibiliteField = findViewById(R.id.visibilite_field);
                 weatherIcon = findViewById(R.id.weather_icon);
                 img_meteo = findViewById(R.id.imgMeteo);
                 img_meteo1 = findViewById(R.id.imgMeteo1);
@@ -129,6 +133,28 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp_min3 = findViewById(R.id.tempMin3);
                 temp_min4 = findViewById(R.id.tempMin4);
                 temp_min5 = findViewById(R.id.tempMin5);
+                pre_hor = findViewById(R.id.preHor);
+                pre_hor1 = findViewById(R.id.preHor1);
+                pre_hor2 = findViewById(R.id.preHor2);
+                pre_hor3 = findViewById(R.id.preHor3);
+                pre_hor4 = findViewById(R.id.preHor4);
+                pre_hor5 = findViewById(R.id.preHor5);
+                pre_hor6 = findViewById(R.id.preHor6);
+                img_hor = findViewById(R.id.imgHor);
+                img_hor1 = findViewById(R.id.imgHor1);
+                img_hor2 = findViewById(R.id.imgHor2);
+                img_hor3 = findViewById(R.id.imgHor3);
+                img_hor4 = findViewById(R.id.imgHor4);
+                img_hor5 = findViewById(R.id.imgHor5);
+                img_hor6 = findViewById(R.id.imgHor6);
+                temp_hor = findViewById(R.id.tempHor);
+                temp_hor1 = findViewById(R.id.tempHor1);
+                temp_hor2 = findViewById(R.id.tempHor2);
+                temp_hor3 = findViewById(R.id.tempHor3);
+                temp_hor4 = findViewById(R.id.tempHor4);
+                temp_hor5 = findViewById(R.id.tempHor5);
+                temp_hor6 = findViewById(R.id.tempHor6);
+
 
                 String[] jsonData = HandleJSON.getJSONResponse(latitude, longitude);
                 cityField.setText(jsonData[0]);
@@ -136,6 +162,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 currentTemperatureField.setText(jsonData[2]);
                 humidityField.setText("Humidité : "+jsonData[3]);
                 pressureField.setText("Pression : "+jsonData[4]);
+                ventField.setText("Vent : "+jsonData[8]);
+                visibiliteField.setText("Visibilité : "+jsonData[9]);
                 updatedField.setText(jsonData[5]);
                 iconeUrl = IMG_URL+jsonData[6]+".png";
                 //System.out.println("---------------------------"+iconeUrl);
@@ -164,6 +192,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 pre_meteo5.setText(jsonDataForecast.get(5).getJour());
                 /*System.out.println("---------------temp max : "+jsonDataForecast.get(0).getTempMax());
                 System.out.println("---------------temp min : "+jsonDataForecast.get(0).getTempMin());*/
+               /* String temp_maxx = "temp_max";
+                String temp_minn = "temp_min";
+                for (int j=0; j<=5;j++){
+                    String temp_maxxx = temp_maxx+j;
+                    System.out.println(temp_maxxx);
+                    String temp_minnn = temp_minn+j;
+                    System.out.println(temp_minnn);
+                }*/
+
                 temp_max.setText(jsonDataForecast.get(0).getTempMax()+"°");
                 temp_min.setText(jsonDataForecast.get(0).getTempMin()+"°");
                 temp_max1.setText(jsonDataForecast.get(1).getTempMax()+"°");
@@ -176,6 +213,60 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 temp_min4.setText(jsonDataForecast.get(4).getTempMin()+"°");
                 temp_max5.setText(jsonDataForecast.get(5).getTempMax()+"°");
                 temp_min5.setText(jsonDataForecast.get(5).getTempMin()+"°");
+
+                ArrayList<PrevisionHoraire> jsonDataForecastHourly = ForecastHourlyHandleJSON.getJSONResponse(latitude, longitude);
+                pre_hor.setText(jsonDataForecastHourly.get(0).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(0).getIcon()+".png").resize(100,100).into(img_hor);
+                temp_hor.setText(jsonDataForecastHourly.get(0).getTemperature()+"°");
+                pre_hor1.setText(jsonDataForecastHourly.get(1).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(1).getIcon()+".png").resize(100,100).into(img_hor1);
+                temp_hor1.setText(jsonDataForecastHourly.get(1).getTemperature()+"°");
+                pre_hor2.setText(jsonDataForecastHourly.get(2).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(1).getIcon()+".png").resize(100,100).into(img_hor2);
+                temp_hor2.setText(jsonDataForecastHourly.get(2).getTemperature()+"°");
+                pre_hor3.setText(jsonDataForecastHourly.get(3).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(1).getIcon()+".png").resize(100,100).into(img_hor3);
+                temp_hor3.setText(jsonDataForecastHourly.get(3).getTemperature()+"°");
+                pre_hor4.setText(jsonDataForecastHourly.get(4).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(1).getIcon()+".png").resize(100,100).into(img_hor4);
+                temp_hor4.setText(jsonDataForecastHourly.get(4).getTemperature()+"°");
+                pre_hor5.setText(jsonDataForecastHourly.get(5).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(5).getIcon()+".png").resize(100,100).into(img_hor5);
+                temp_hor5.setText(jsonDataForecastHourly.get(5).getTemperature()+"°");
+                pre_hor6.setText(jsonDataForecastHourly.get(6).getHeure());
+                Picasso.get().load(IMG_URL+jsonDataForecastHourly.get(6).getIcon()+".png").resize(100,100).into(img_hor6);
+                temp_hor6.setText(jsonDataForecastHourly.get(6).getTemperature()+"°");
+                /*System.out.println("----------test mainActivity");
+                System.out.println("--------size : "+jsonDataForecastHourly.size());
+                String valTest = "valTest";
+                for (int i=0;i<jsonDataForecastHourly.size();i++){
+                    String valTestt = valTest+i;
+                    System.out.println(valTestt);
+                }*/
+                /*System.out.println("----------- heure : "+jsonDataForecastHourly.get(0).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(0).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(0).getTemperature());
+                System.out.println("***************************************");
+                System.out.println("----------- heure : "+jsonDataForecastHourly.get(1).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(1).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(1).getTemperature());
+                System.out.println("***************************************");
+                System.out.println("----------- heure : "+jsonDataForecastHourly.get(2).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(2).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(2).getTemperature());
+                System.out.println("***************************************");
+                System.out.println("----------- heure : "+jsonDataForecastHourly.get(3).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(3).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(3).getTemperature());
+                System.out.println("***************************************");
+                System.out.println("----------- heure : "+jsonDataForecastHourly.get(4).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(4).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(4).getTemperature());
+                System.out.println("***************************************");
+                System.out.println("----------- heure : "+jsonDataForecastHourly.get(5).getHeure());
+                System.out.println("----------- icone : "+jsonDataForecastHourly.get(5).getIcon());
+                System.out.println("----------- temp : "+jsonDataForecastHourly.get(5).getTemperature());
+                System.out.println("***************************************");*/
 
         });
     }

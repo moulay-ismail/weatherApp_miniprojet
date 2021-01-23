@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:textColor="#FFFFFF"
-            android:textSize="90sp" />
+            android:textSize="80sp" />
 
         <ImageView
             android:id="@+id/weather_icon"
@@ -72,8 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_marginTop="30dp"
-            android:textColor="#FFFFFF"
-            android:textSize="120px" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -90,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/pressure_field"
@@ -98,16 +97,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_centerHorizontal="true"/>
 
         <TextView
-            android:id="@+id/details_field"
+            android:id="@+id/vent_field"
             android:layout_below="@+id/pressure_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/visibilite_field"
+            android:layout_below="@+id/vent_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/details_field"
+            android:layout_below="@+id/visibilite_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
             android:layout_centerHorizontal="true"/>
 
         <TextView
@@ -116,15 +132,231 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/previsionHoriare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/body"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp">
 
+        <TextView
+            android:id="@+id/horaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/horaire"
+            android:textColor="@color/white">
+        </TextView>
+        <View
+            android:layout_below="@+id/horaire"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/gradienthr" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor1">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor1"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor2">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor2"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor3">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor3"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor4">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor4"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor5">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor5"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+                <TextView
+                    android:id="@+id/preHor6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
+                </TextView>
+                <ImageView
+                    android:id="@+id/imgHor6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/preHor6">
+                </ImageView>
+                <TextView
+                    android:id="@+id/tempHor6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_below="@+id/imgHor6"
+                    android:layout_centerHorizontal="true">
+                </TextView>
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/body"
-        android:layout_marginTop="50dp"
+        android:layout_below="@id/previsionHoriare"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp">
         <TextView
@@ -325,7 +557,6 @@
             </TextView>
 
         </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -365,113 +596,7 @@
 
     </RelativeLayout>
 
-
-
-
-
-
-
-
-
-    <!--<LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/body"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="55dp"
-        android:orientation="horizontal">
-
-
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imgMeteo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
-            <TextView
-                android:id="@+id/preMeteo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imgMeteo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
-            <TextView
-                android:id="@+id/preMeteo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imgMeteo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
-            <TextView
-                android:id="@+id/preMeteo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imgMeteo3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
-            <TextView
-                android:id="@+id/preMeteo3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imgMeteo4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </ImageView>
-            <TextView
-                android:id="@+id/preMeteo4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:ems="20"
-            android:background="?android:attr/activatedBackgroundIndicator"
-            android:text="5 Jours de previsions" />
-
-    </LinearLayout>-->
-
-    <RelativeLayout
+    <!--<RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -504,5 +629,5 @@
             android:text="RHIATI Othmane"
             android:textColor="#FFFFFF"
             android:textSize="18dp" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 </RelativeLayout>
