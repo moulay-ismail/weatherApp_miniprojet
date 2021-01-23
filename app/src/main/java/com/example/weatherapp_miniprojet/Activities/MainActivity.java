@@ -1,8 +1,5 @@
 package com.example.weatherapp_miniprojet.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,10 +13,15 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import com.example.weatherapp_miniprojet.ConnectAPI.ForecastHandleJSON;
+import com.example.weatherapp_miniprojet.ConnectAPI.ForecastHourlyHandleJSON;
+import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
 import com.example.weatherapp_miniprojet.Entities.Prevision;
 import com.example.weatherapp_miniprojet.Entities.PrevisionHoraire;
 import com.example.weatherapp_miniprojet.R;
-import com.example.weatherapp_miniprojet.ConnectAPI.*;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.squareup.picasso.Picasso;
@@ -43,13 +45,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Button btnVille;
     static String latitude;
     static String longitude;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Get from Layout...
         btnVille = findViewById(R.id.btn_ville);
+
         cityField = findViewById(R.id.city_field);
         currentTemperatureField = findViewById(R.id.currnet_temperature_field);
         updatedField = findViewById(R.id.updated_field);

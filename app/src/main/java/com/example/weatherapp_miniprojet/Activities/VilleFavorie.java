@@ -1,8 +1,5 @@
 package com.example.weatherapp_miniprojet.Activities;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,8 +14,12 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.weatherapp_miniprojet.Adapters.VilleAdapter;
 import com.example.weatherapp_miniprojet.ConnectAPI.HandleJSON;
@@ -37,10 +38,22 @@ public class VilleFavorie extends AppCompatActivity {
     VilleDAO villeDAO;
     ListView view;
     HandleJSON handleJSON;
+    ImageButton backMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ville_favorie);
+        backMain = findViewById(R.id.backMain);
+        backMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(mainIntent);
+                finish();
+                overridePendingTransition(0, 0);
+            }
+        });
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         villeDAO = new VilleDAO(this);
@@ -109,8 +122,8 @@ public class VilleFavorie extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String reccuperedValue = listVilles.get(position).getNomVille();
-                Intent search = new Intent(VilleFavorie.this,MainActivity.class);
-                search.putExtra("ville",reccuperedValue);
+                Intent search = new Intent(VilleFavorie.this, MainActivity.class);
+                search.putExtra("ville", reccuperedValue);
                 startActivity(search);
             }
         });
