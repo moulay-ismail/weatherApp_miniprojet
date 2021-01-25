@@ -103,7 +103,7 @@ public class HandleJSON {
     public String loadJSONFromAsset() {
         String json = null;
         try {
-            InputStream is = context.getAssets().open("city.list.json");
+            InputStream is = context.getAssets().open("city.list.min.json");
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);

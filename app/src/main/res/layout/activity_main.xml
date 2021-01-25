@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +7,10 @@
     tools:context=".Activities.MainActivity">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-15dp"></RelativeLayout>
-
-    <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
 
         <Button
             android:id="@+id/btn_ville"
@@ -25,20 +20,33 @@
             android:layout_marginRight="40dp"
             android:background="?android:attr/activatedBackgroundIndicator"
             android:text="@string/ville"></Button>
+
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_margin="13dp"
-            android:src="@mipmap/menu6"
             android:background="@null"
-            android:onClick="showMenu"></ImageButton>
+            android:onClick="showMenu"
+            android:src="@mipmap/menu6"></ImageButton>
+
+        <ImageButton
+            android:id="@+id/btn_back_listFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_margin="13dp"
+            android:background="?android:attr/activatedBackgroundIndicator"
+            android:src="@mipmap/ic_back_button_white"
+            android:visibility="gone"></ImageButton>
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/cityLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header">
+
         <TextView
             android:id="@+id/city_field"
             android:layout_width="wrap_content"
@@ -76,10 +84,26 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/body"
-        android:layout_below="@+id/iconeAndTem"
+        android:id="@+id/errorLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/iconeAndTem"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/error_img_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/no_data"
+            android:layout_centerInParent="true"></ImageView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iconeAndTem"
         android:orientation="vertical">
 
         <TextView
@@ -92,57 +116,59 @@
 
         <TextView
             android:id="@+id/pressure_field"
-            android:layout_below="@+id/humidity_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/humidity_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/vent_field"
-            android:layout_below="@+id/pressure_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/pressure_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/visibilite_field"
-            android:layout_below="@+id/vent_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/vent_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/details_field"
-            android:layout_below="@+id/visibilite_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/visibilite_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/updated_field"
-            android:layout_below="@+id/details_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/details_field"
+            android:layout_centerHorizontal="true"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:layout_centerHorizontal="true" />
+            android:textSize="16sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/previsionHoriare"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/body"
-        android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="5dp"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/horaire"
@@ -150,10 +176,11 @@
             android:layout_height="wrap_content"
             android:text="@string/horaire"
             android:textColor="@color/white"></TextView>
+
         <View
-            android:layout_below="@+id/horaire"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_below="@+id/horaire"
             android:background="@drawable/gradienthr" />
 
         <LinearLayout
@@ -161,6 +188,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp">
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -176,16 +204,16 @@
                     android:id="@+id/imgHor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor"></ImageView>
+                    android:layout_below="@+id/preHor"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -203,16 +231,16 @@
                     android:id="@+id/imgHor1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor1"></ImageView>
+                    android:layout_below="@+id/preHor1"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor1"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -230,16 +258,16 @@
                     android:id="@+id/imgHor2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor2"></ImageView>
+                    android:layout_below="@+id/preHor2"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor2"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -257,16 +285,16 @@
                     android:id="@+id/imgHor3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor3"></ImageView>
+                    android:layout_below="@+id/preHor3"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor3"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -284,17 +312,18 @@
                     android:id="@+id/imgHor4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor4"></ImageView>
+                    android:layout_below="@+id/preHor4"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor4"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -310,16 +339,16 @@
                     android:id="@+id/imgHor5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor5"></ImageView>
+                    android:layout_below="@+id/preHor5"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor5"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -337,27 +366,30 @@
                     android:id="@+id/imgHor6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preHor6"></ImageView>
+                    android:layout_below="@+id/preHor6"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempHor6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgHor6"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
             </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/previsionDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/previsionHoriare"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="5dp"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/quotid"
@@ -365,10 +397,11 @@
             android:layout_height="wrap_content"
             android:text="Quotid."
             android:textColor="@color/white"></TextView>
+
         <View
-            android:layout_below="@+id/quotid"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_below="@+id/quotid"
             android:background="@drawable/gradienthr" />
 
         <LinearLayout
@@ -392,24 +425,24 @@
                     android:id="@+id/imgMeteo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo"></ImageView>
+                    android:layout_below="@+id/preMeteo"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
 
@@ -428,24 +461,24 @@
                     android:id="@+id/imgMeteo1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo1"></ImageView>
+                    android:layout_below="@+id/preMeteo1"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo1"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax1"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
 
@@ -464,24 +497,24 @@
                     android:id="@+id/imgMeteo2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo2"></ImageView>
+                    android:layout_below="@+id/preMeteo2"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo2"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax2"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
 
@@ -500,24 +533,24 @@
                     android:id="@+id/imgMeteo3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo3"></ImageView>
+                    android:layout_below="@+id/preMeteo3"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo3"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax3"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
 
@@ -536,26 +569,27 @@
                     android:id="@+id/imgMeteo4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo4"></ImageView>
+                    android:layout_below="@+id/preMeteo4"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo4"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax4"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -571,62 +605,27 @@
                     android:id="@+id/imgMeteo5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/preMeteo5"></ImageView>
+                    android:layout_below="@+id/preMeteo5"
+                    android:layout_centerHorizontal="true"></ImageView>
 
                 <TextView
                     android:id="@+id/tempMax5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/imgMeteo5"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
                 <TextView
                     android:id="@+id/tempMin5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_below="@+id/tempMax5"
-                    android:layout_centerHorizontal="true"></TextView>
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"></TextView>
 
             </RelativeLayout>
         </LinearLayout>
 
     </RelativeLayout>
-
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="15dp">
-
-        <TextView
-            android:id="@+id/realiser_par"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Realisé par :"
-            android:textColor="#FFFFFF"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/realiser_par1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/realiser_par"
-            android:layout_centerHorizontal="true"
-            android:text="MOULAY Ismail"
-            android:textColor="#FFFFFF"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/realiser_par2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/realiser_par1"
-            android:layout_centerHorizontal="true"
-            android:text="RHIATI Othmane"
-            android:textColor="#FFFFFF"
-            android:textSize="18dp" />
-    </RelativeLayout>-->
 </RelativeLayout>

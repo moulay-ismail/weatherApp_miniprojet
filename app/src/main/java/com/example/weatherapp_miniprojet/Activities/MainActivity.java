@@ -1,15 +1,20 @@
 package com.example.weatherapp_miniprojet.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,15 +48,23 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, ventField, visibiliteField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5, pre_hor, pre_hor1, pre_hor2, pre_hor3, pre_hor4, pre_hor5, pre_hor6, temp_hor, temp_hor1, temp_hor2, temp_hor3, temp_hor4, temp_hor5, temp_hor6;
     ImageView weatherIcon, img_meteo, img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5, img_hor, img_hor1, img_hor2, img_hor3, img_hor4, img_hor5, img_hor6;
     Button btnVille;
+    ImageButton btn_back_listFav;
     static String latitude;
     static String longitude;
+
+    RelativeLayout previsionHoriare, previsionDay, headerLayout, errorLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // Get from Layout...
         btnVille = findViewById(R.id.btn_ville);
-
+        btn_back_listFav = findViewById(R.id.btn_back_listFav);
+        previsionHoriare = findViewById(R.id.previsionHoriare);
+        previsionDay = findViewById(R.id.previsionDays);
+        errorLayout = findViewById(R.id.errorLayout);
+        headerLayout = findViewById(R.id.header);
         cityField = findViewById(R.id.city_field);
         currentTemperatureField = findViewById(R.id.currnet_temperature_field);
         updatedField = findViewById(R.id.updated_field);
@@ -114,6 +127,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(villeIntent);
             }
         });
+        btn_back_listFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                //overridePendingTransition(0, 0);
+            }
+        });
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // setFlags() : Définissez les indicateurs de la fenêtre.
         getSupportActionBar().hide();
@@ -126,6 +146,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Intent intent = getIntent();
         String getVille = intent.getStringExtra("ville");
         if (getVille != null) {
+            previsionDay.setVisibility(View.VISIBLE);
+            previsionHoriare.setVisibility(View.VISIBLE);
+            headerLayout.setVisibility(View.VISIBLE);
+            btnVille.setVisibility(View.GONE);
+            btn_back_listFav.setVisibility(View.VISIBLE);
             cityField.setText(getVille);
             try {
                 ArrayList<String> infos = findByVille(getVille);
@@ -138,22 +163,31 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             } catch (JSONException exception) {
                 exception.printStackTrace();
             }
-        }
-        else {
-            FusedLocationProviderClient mFusedLocationProviderClient;
-            // FusedLocationProviderClient : Le principal point d'entrée pour interagir avec le fournisseur d'emplacement fusionné
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-            if (ActivityCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // PackageManager.PERMISSION_GRANTED : Résultat du contrôle des autorisations: il est renvoyé par checkPermission si l'autorisation a été accordée au package donné
-                return;
-            }
-            mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, location -> {
-                if (location != null) {
-                    latitude = String.valueOf(location.getLatitude());
-                    longitude = String.valueOf(location.getLongitude());
+        } else {
+            boolean connected = checkInternet();
+            if (connected) {
+                previsionDay.setVisibility(View.VISIBLE);
+                previsionHoriare.setVisibility(View.VISIBLE);
+                headerLayout.setVisibility(View.VISIBLE);
+                FusedLocationProviderClient mFusedLocationProviderClient;
+                // FusedLocationProviderClient : Le principal point d'entrée pour interagir avec le fournisseur d'emplacement fusionné
+                mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // PackageManager.PERMISSION_GRANTED : Résultat du contrôle des autorisations: il est renvoyé par checkPermission si l'autorisation a été accordée au package donné
+                    return;
                 }
-                results(latitude, longitude);
-            });
+                mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, location -> {
+                    if (location != null) {
+                        latitude = String.valueOf(location.getLatitude());
+                        longitude = String.valueOf(location.getLongitude());
+                    }
+                    results(latitude, longitude);
+                });
+            } else {
+                errorLayout.setVisibility(View.VISIBLE);
+                Toast.makeText(this, "Vous devez avoir une connection internet pour acceder à la météo.",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -252,14 +286,27 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         JSONArray json = new JSONArray(handleJSON.loadJSONFromAsset());
         for (int i = 0; i < json.length(); i++) {
             final JSONObject e = json.getJSONObject(i);
-            if (e.getString("country").equals("MA")) {
-                if (e.getString("name").equals(ville)) {
-                    JSONObject coordObj = new JSONObject(e.getString("coord"));
-                    listdata.add(String.valueOf(coordObj.getDouble("lon")));
-                    listdata.add(String.valueOf(coordObj.getDouble("lat")));
-                }
+            if (e.getString("name").equals(ville)) {
+                JSONObject coordObj = new JSONObject(e.getString("coord"));
+                listdata.add(String.valueOf(coordObj.getDouble("lon")));
+                listdata.add(String.valueOf(coordObj.getDouble("lat")));
             }
         }
         return listdata;
+    }
+
+    private boolean checkInternet() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            // connected to the internet
+            /*if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+
+            }*/
+            return true;
+        } else {
+            // not connected to the internet
+            return false;
+        }
     }
 }

@@ -48,10 +48,8 @@ public class VilleFavorie extends AppCompatActivity {
         backMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mainIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainIntent);
                 finish();
-                overridePendingTransition(0, 0);
+                //overridePendingTransition(0, 0);
             }
         });
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -180,9 +178,7 @@ public class VilleFavorie extends AppCompatActivity {
         JSONArray json = new JSONArray(handleJSON.loadJSONFromAsset());
         for (int i = 0; i < json.length(); i++) {
             final JSONObject e = json.getJSONObject(i);
-            if (e.getString("country").equals("MA")) {
                 listdata.add(e.getString("name"));
-            }
         }
         return listdata;
     }
