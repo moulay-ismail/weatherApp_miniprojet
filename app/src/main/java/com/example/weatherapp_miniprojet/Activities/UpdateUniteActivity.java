@@ -45,6 +45,7 @@ public class UpdateUniteActivity extends AppCompatActivity {
     }
 
     void startActivityAcceuil(String unitee){
+        finish();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("unite", unitee);
         startActivity(intent);

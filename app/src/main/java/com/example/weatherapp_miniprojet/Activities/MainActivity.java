@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static final String IMG_URL = "https://openweathermap.org/img/w/";
     public static String iconeUrl;
     HandleJSON handleJSON;
-    public String unit="imperial";
+    public String unit="metric";
 
     TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, ventField, visibiliteField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5, pre_hor, pre_hor1, pre_hor2, pre_hor3, pre_hor4, pre_hor5, pre_hor6, temp_hor, temp_hor1, temp_hor2, temp_hor3, temp_hor4, temp_hor5, temp_hor6;
     ImageView weatherIcon, img_meteo, img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5, img_hor, img_hor1, img_hor2, img_hor3, img_hor4, img_hor5, img_hor6;
@@ -282,6 +282,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.temperaure_setting:
+                finish();
                 Intent updateUnitIntent= new Intent(getApplicationContext(), UpdateUniteActivity.class);
                 updateUnitIntent.putExtra("unit", unit);
                 startActivity(updateUnitIntent);
