@@ -3,10 +3,7 @@
 
     <item
         android:id="@+id/temperaure_setting"
-        android:title="chnager unite temperature"></item>
-    <item
-        android:id="@+id/vent_setting"
-        android:title="chnager unite vent"></item>
+        android:title="@string/modifier_l_unit"></item>
     <item
         android:id="@+id/apropos"
         android:title="A propos"></item>

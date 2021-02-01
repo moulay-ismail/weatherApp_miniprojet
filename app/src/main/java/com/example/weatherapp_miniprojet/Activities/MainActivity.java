@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static final String IMG_URL = "https://openweathermap.org/img/w/";
     public static String iconeUrl;
     HandleJSON handleJSON;
+    public String unit="imperial";
 
     TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, ventField, visibiliteField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5, pre_hor, pre_hor1, pre_hor2, pre_hor3, pre_hor4, pre_hor5, pre_hor6, temp_hor, temp_hor1, temp_hor2, temp_hor3, temp_hor4, temp_hor5, temp_hor6;
     ImageView weatherIcon, img_meteo, img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5, img_hor, img_hor1, img_hor2, img_hor3, img_hor4, img_hor5, img_hor6;
@@ -144,6 +145,12 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         //Value Gotten From VilleFavouie Activity
         Intent intent = getIntent();
+
+        String unitee = intent.getStringExtra("unite");
+        if (unitee != null){
+            unit = unitee;
+            Toast.makeText(this, "unite : "+unitee, Toast.LENGTH_LONG).show();
+        }
         String getVille = intent.getStringExtra("ville");
         if (getVille != null) {
             previsionDay.setVisibility(View.VISIBLE);
@@ -157,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 if (!infos.equals(null)) {
                     longitude = infos.get(0);
                     latitude = infos.get(1);
-                    results(latitude, longitude);
+                    results(latitude, longitude, unit);
                     infos.clear();
                 }
             } catch (JSONException exception) {
@@ -181,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                         latitude = String.valueOf(location.getLatitude());
                         longitude = String.valueOf(location.getLongitude());
                     }
-                    results(latitude, longitude);
+                    results(latitude, longitude, unit);
                 });
             } else {
                 errorLayout.setVisibility(View.VISIBLE);
@@ -191,19 +198,25 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    private void results(String latitude, String longitude) {
-        String[] jsonData = HandleJSON.getJSONResponse(latitude, longitude);
+    private void results(String latitude, String longitude, String unit) {
+        String[] jsonData = HandleJSON.getJSONResponse(latitude, longitude, unit);
         cityField.setText(jsonData[0]);
         detailsFields.setText(jsonData[1]);
         currentTemperatureField.setText(jsonData[2]);
         humidityField.setText("Humidité : " + jsonData[3]);
         pressureField.setText("Pression : " + jsonData[4]);
-        ventField.setText("Vent : " + jsonData[8]);
-        visibiliteField.setText("Visibilité : " + jsonData[9]);
+        ventField.setText("Visibilité : " + jsonData[8]);
+        visibiliteField.setText("Vent: " + jsonData[9]);
         updatedField.setText(jsonData[5]);
         iconeUrl = IMG_URL + jsonData[6] + ".png";
         System.out.println("---------------------------" + iconeUrl);
         Picasso.get().load(iconeUrl).resize(250, 250).into(weatherIcon);
+
+        String uniteChal = " °C";
+        if (unit.equals("imperial")){
+            uniteChal = " °F";
+        }
+
         ArrayList<Prevision> jsonDataForecast = ForecastHandleJSON.getJSONResponse(latitude, longitude);
         Picasso.get().load(IMG_URL + jsonDataForecast.get(0).getIcon() + ".png").resize(100, 100).into(img_meteo);
         pre_meteo.setText(jsonDataForecast.get(0).getJour());
@@ -217,40 +230,41 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         pre_meteo4.setText(jsonDataForecast.get(4).getJour());
         Picasso.get().load(IMG_URL + jsonDataForecast.get(5).getIcon() + ".png").resize(100, 100).into(img_meteo5);
         pre_meteo5.setText(jsonDataForecast.get(5).getJour());
-        temp_max.setText(jsonDataForecast.get(0).getTempMax() + "°");
-        temp_min.setText(jsonDataForecast.get(0).getTempMin() + "°");
-        temp_max1.setText(jsonDataForecast.get(1).getTempMax() + "°");
-        temp_min1.setText(jsonDataForecast.get(1).getTempMin() + "°");
-        temp_max2.setText(jsonDataForecast.get(2).getTempMax() + "°");
-        temp_min2.setText(jsonDataForecast.get(2).getTempMin() + "°");
-        temp_max3.setText(jsonDataForecast.get(3).getTempMax() + "°");
-        temp_min3.setText(jsonDataForecast.get(3).getTempMin() + "°");
-        temp_max4.setText(jsonDataForecast.get(4).getTempMax() + "°");
-        temp_min4.setText(jsonDataForecast.get(4).getTempMin() + "°");
-        temp_max5.setText(jsonDataForecast.get(5).getTempMax() + "°");
-        temp_min5.setText(jsonDataForecast.get(5).getTempMin() + "°");
+        temp_max.setText(jsonDataForecast.get(0).getTempMax() + uniteChal);
+        temp_min.setText(jsonDataForecast.get(0).getTempMin() + uniteChal);
+        temp_max1.setText(jsonDataForecast.get(1).getTempMax() + uniteChal);
+        temp_min1.setText(jsonDataForecast.get(1).getTempMin() + uniteChal);
+        temp_max2.setText(jsonDataForecast.get(2).getTempMax() + uniteChal);
+        temp_min2.setText(jsonDataForecast.get(2).getTempMin() + uniteChal);
+        temp_max3.setText(jsonDataForecast.get(3).getTempMax() + uniteChal);
+        temp_min3.setText(jsonDataForecast.get(3).getTempMin() + uniteChal);
+        temp_max4.setText(jsonDataForecast.get(4).getTempMax() + uniteChal);
+        temp_min4.setText(jsonDataForecast.get(4).getTempMin() + uniteChal);
+        temp_max5.setText(jsonDataForecast.get(5).getTempMax() + uniteChal);
+        temp_min5.setText(jsonDataForecast.get(5).getTempMin() + uniteChal);
+
         ArrayList<PrevisionHoraire> jsonDataForecastHourly = ForecastHourlyHandleJSON.getJSONResponse(latitude, longitude);
         pre_hor.setText(jsonDataForecastHourly.get(0).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(0).getIcon() + ".png").resize(100, 100).into(img_hor);
-        temp_hor.setText(jsonDataForecastHourly.get(0).getTemperature() + "°");
+        temp_hor.setText(jsonDataForecastHourly.get(0).getTemperature() + uniteChal);
         pre_hor1.setText(jsonDataForecastHourly.get(1).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(1).getIcon() + ".png").resize(100, 100).into(img_hor1);
-        temp_hor1.setText(jsonDataForecastHourly.get(1).getTemperature() + "°");
+        temp_hor1.setText(jsonDataForecastHourly.get(1).getTemperature() + uniteChal);
         pre_hor2.setText(jsonDataForecastHourly.get(2).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(1).getIcon() + ".png").resize(100, 100).into(img_hor2);
-        temp_hor2.setText(jsonDataForecastHourly.get(2).getTemperature() + "°");
+        temp_hor2.setText(jsonDataForecastHourly.get(2).getTemperature() + uniteChal);
         pre_hor3.setText(jsonDataForecastHourly.get(3).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(1).getIcon() + ".png").resize(100, 100).into(img_hor3);
-        temp_hor3.setText(jsonDataForecastHourly.get(3).getTemperature() + "°");
+        temp_hor3.setText(jsonDataForecastHourly.get(3).getTemperature() + uniteChal);
         pre_hor4.setText(jsonDataForecastHourly.get(4).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(1).getIcon() + ".png").resize(100, 100).into(img_hor4);
-        temp_hor4.setText(jsonDataForecastHourly.get(4).getTemperature() + "°");
+        temp_hor4.setText(jsonDataForecastHourly.get(4).getTemperature() + uniteChal);
         pre_hor5.setText(jsonDataForecastHourly.get(5).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(5).getIcon() + ".png").resize(100, 100).into(img_hor5);
-        temp_hor5.setText(jsonDataForecastHourly.get(5).getTemperature() + "°");
+        temp_hor5.setText(jsonDataForecastHourly.get(5).getTemperature() + uniteChal);
         pre_hor6.setText(jsonDataForecastHourly.get(6).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(6).getIcon() + ".png").resize(100, 100).into(img_hor6);
-        temp_hor6.setText(jsonDataForecastHourly.get(6).getTemperature() + "°");
+        temp_hor6.setText(jsonDataForecastHourly.get(6).getTemperature() + uniteChal);
     }
 
     private void requestPermissions() {
@@ -268,10 +282,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.temperaure_setting:
-                Toast.makeText(this, "changer unite de temperature", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.vent_setting:
-                Toast.makeText(this, "changer unite de vent", Toast.LENGTH_SHORT).show();
+                Intent updateUnitIntent= new Intent(getApplicationContext(), UpdateUniteActivity.class);
+                updateUnitIntent.putExtra("unit", unit);
+                startActivity(updateUnitIntent);
+                //Toast.makeText(this, "changer unité", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.apropos:
                 Toast.makeText(this, "layout apropos", Toast.LENGTH_SHORT).show();

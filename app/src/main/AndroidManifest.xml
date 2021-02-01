@@ -3,9 +3,10 @@
     package="com.example.weatherapp_miniprojet">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WeatherApp_miniprojet"
         android:usesCleartextTraffic="true">
+        <activity android:name=".Activities.UpdateUniteActivity"></activity>
         <!-- usesCleartextTraffic :  Déclarez que cette application peut utiliser du trafic en texte clair, tel que HTTP plutôt que HTTPS; -->
         <activity android:name=".Activities.MainActivity">
             <intent-filter>
@@ -22,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.VilleFavorie"></activity>
+        <activity android:name=".Activities.VilleFavorie" />
     </application>
 
 </manifest>

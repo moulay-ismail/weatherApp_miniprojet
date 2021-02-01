@@ -3,4 +3,5 @@
     <string name="ville">ville</string>
     <string name="delete">Supprimer</string>
     <string name="horaire">Horaire.</string>
+    <string name="modifier_l_unit">modifier l\'unité</string>
 </resources>

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class HandleJSON {
-    private static final String OPEN_WEATHER_MAP_URL = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
+    private static final String OPEN_WEATHER_MAP_URL = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=%s&lang=fr";
     private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
     Context context;
 
@@ -25,17 +25,28 @@ public class HandleJSON {
         this.context = context;
     }
 
-    public static String[] getJSONResponse(String latitude, String longitude) {
+
+    public static String[] getJSONResponse(String latitude, String longitude, String unit) {
+        String uniteVent=" km/h";
+        String uniteChal = "°C";
+        String uniteVisib = " km";
         String[] jsonData = new String[10];
         JSONObject jsonWeather = null;
         try {
-            jsonWeather = getWeatherJSON(latitude, longitude);
+            jsonWeather = getWeatherJSON(latitude, longitude, unit);
         } catch (Exception e) {
             Log.d("Error", "impossible de traiter le résultat json", e);
         }
 
         try {
             if (jsonWeather != null) {
+                if (unit.equals("metric")){
+                     uniteVent = " km/h";
+                }else if (unit.equals("imperial")){
+                     uniteVent = " MPH";
+                     uniteChal = "°F";
+                     uniteVisib = " mi";
+                }
                 //Recuperation des données
                 JSONObject details = jsonWeather.getJSONArray("weather").getJSONObject(0);
                 JSONObject main = jsonWeather.getJSONObject("main");
@@ -43,8 +54,8 @@ public class HandleJSON {
                 DateFormat df = DateFormat.getDateInstance();
 
                 String city = jsonWeather.getString("name") + ", " + jsonWeather.getJSONObject("sys").getString("country");
-                String description = details.getString("description").toLowerCase(Locale.US);
-                String temperature = String.format("%.0f", main.getDouble("temp")) + "°";
+                String description = details.getString("description").toUpperCase();
+                String temperature = String.format("%.0f", main.getDouble("temp")) + uniteChal;
                 String humidity = main.getString("humidity") + "%";
                 String pressure = main.getString("pressure") + " hPa";
                 long dt = jsonWeather.getLong("dt");
@@ -69,17 +80,17 @@ public class HandleJSON {
                 jsonData[5] = updateOn;
                 jsonData[6] = iconeText;
                 jsonData[7] = heure;
-                jsonData[8] = visibility + " km";
-                jsonData[9] = vent + " km/h";
+                jsonData[8] = visibility + uniteVisib;
+                jsonData[9] = vent + uniteVent;
             }
         } catch (Exception e) {
 
         }
         return jsonData;
     }
-    public static JSONObject getWeatherJSON(String lat, String lon) {
+    public static JSONObject getWeatherJSON(String lat, String lon, String unit) {
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon));
+            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL, lat, lon, unit));
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             // openConnection() : Renvoie une instance URLConnection qui représente une connexion à l'objet distant référencé par l'URL.
             connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
