@@ -9,11 +9,11 @@
         android:id="@+id/header_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="changer unité"
+            android:text="Changer Unité"
             android:textSize="30sp"
             android:layout_centerHorizontal="true">
         </TextView>
@@ -29,7 +29,7 @@
             android:id="@+id/metric_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="metric"
+            android:text="Metric"
             android:textSize="20sp"
             android:onClick="metricRadioClicked">
         </RadioButton>
@@ -37,7 +37,7 @@
             android:id="@+id/imperial_radio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="imperial"
+            android:text="Imperial"
             android:textSize="20sp"
             android:onClick="imperialRadioClicked">
         </RadioButton>

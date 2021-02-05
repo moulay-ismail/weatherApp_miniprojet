@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public static final String IMG_URL = "https://openweathermap.org/img/w/";
     public static String iconeUrl;
     HandleJSON handleJSON;
-    public String unit="metric";
+    public String unit = "metric";
 
     TextView cityField, detailsFields, currentTemperatureField, humidityField, pressureField, ventField, visibiliteField, updatedField, pre_meteo, pre_meteo1, pre_meteo2, pre_meteo3, pre_meteo4, pre_meteo5, temp_max, temp_max1, temp_max2, temp_max3, temp_max4, temp_max5, temp_min, temp_min1, temp_min2, temp_min3, temp_min4, temp_min5, pre_hor, pre_hor1, pre_hor2, pre_hor3, pre_hor4, pre_hor5, pre_hor6, temp_hor, temp_hor1, temp_hor2, temp_hor3, temp_hor4, temp_hor5, temp_hor6;
     ImageView weatherIcon, img_meteo, img_meteo1, img_meteo2, img_meteo3, img_meteo4, img_meteo5, img_hor, img_hor1, img_hor2, img_hor3, img_hor4, img_hor5, img_hor6;
@@ -135,8 +135,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 //overridePendingTransition(0, 0);
             }
         });
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // setFlags() : Définissez les indicateurs de la fenêtre.
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -145,11 +146,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         //Value Gotten From VilleFavouie Activity
         Intent intent = getIntent();
-
         String unitee = intent.getStringExtra("unite");
-        if (unitee != null){
+        if (unitee != null) {
             unit = unitee;
-            Toast.makeText(this, "unite : "+unitee, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Unité : " + unitee, Toast.LENGTH_LONG).show();
         }
         String getVille = intent.getStringExtra("ville");
         if (getVille != null) {
@@ -187,8 +187,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     if (location != null) {
                         latitude = String.valueOf(location.getLatitude());
                         longitude = String.valueOf(location.getLongitude());
+                        results(latitude, longitude, unit);
+                    } else {
+                        Toast.makeText(this, "Desolé(e), vous devez changer votre position pour vous detecter automatiquement",
+                                Toast.LENGTH_SHORT).show();
                     }
-                    results(latitude, longitude, unit);
                 });
             } else {
                 errorLayout.setVisibility(View.VISIBLE);
@@ -213,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Picasso.get().load(iconeUrl).resize(250, 250).into(weatherIcon);
 
         String uniteChal = " °C";
-        if (unit.equals("imperial")){
+        if (unit.equals("imperial")) {
             uniteChal = " °F";
         }
 
@@ -283,13 +286,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         switch (item.getItemId()) {
             case R.id.temperaure_setting:
                 finish();
-                Intent updateUnitIntent= new Intent(getApplicationContext(), UpdateUniteActivity.class);
+                Intent updateUnitIntent = new Intent(getApplicationContext(), UpdateUniteActivity.class);
                 updateUnitIntent.putExtra("unit", unit);
                 startActivity(updateUnitIntent);
                 //Toast.makeText(this, "changer unité", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.apropos:
-                Toast.makeText(this, "layout apropos", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(),aboutUsActivity.class);
+                startActivity(intent);
                 return true;
         }
         return false;
@@ -316,7 +320,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         if (activeNetwork != null) {
             // connected to the internet
             /*if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-
             }*/
             return true;
         } else {

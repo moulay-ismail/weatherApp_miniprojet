@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -16,13 +17,16 @@ public class UpdateUniteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_unite);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        // setFlags() : Définissez les indicateurs de la fenêtre.
+        getSupportActionBar().hide();
 
         metricRadio = findViewById(R.id.metric_radio);
         imperialRadio = findViewById(R.id.imperial_radio);
 
         Intent inten = getIntent();
         String unit = inten.getStringExtra("unit");
-        Toast.makeText(this, "unite : "+unit, Toast.LENGTH_SHORT).show();
         if (unit.equals("metric")){
             metricRadio.setChecked(true);
             imperialRadio.setChecked(false);

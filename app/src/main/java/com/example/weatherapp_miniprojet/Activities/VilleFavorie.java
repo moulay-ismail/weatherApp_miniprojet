@@ -52,7 +52,8 @@ public class VilleFavorie extends AppCompatActivity {
                 //overridePendingTransition(0, 0);
             }
         });
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
         villeDAO = new VilleDAO(this);
         ArrayList<Ville> listVilles = villeDAO.villeList();

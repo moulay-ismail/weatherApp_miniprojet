@@ -6,5 +6,5 @@
         android:title="@string/modifier_l_unit"></item>
     <item
         android:id="@+id/apropos"
-        android:title="A propos"></item>
+        android:title="@string/a_propos"></item>
 </menu>

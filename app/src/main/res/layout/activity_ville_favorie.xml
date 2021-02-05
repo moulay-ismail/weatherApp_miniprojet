@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:divider="@android:color/transparent"
+            android:background="?android:attr/activatedBackgroundIndicator"
             android:dividerHeight="10.0sp"></ListView>
     </LinearLayout>
 </RelativeLayout>

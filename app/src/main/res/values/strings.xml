@@ -3,5 +3,7 @@
     <string name="ville">ville</string>
     <string name="delete">Supprimer</string>
     <string name="horaire">Horaire.</string>
-    <string name="modifier_l_unit">modifier l\'unité</string>
+    <string name="modifier_l_unit">Modifier l\'unité</string>
+    <string name="a_propos">A Propos</string>
+    <string name="rhiati_othmane">RHIATI Othmane</string>
 </resources>
