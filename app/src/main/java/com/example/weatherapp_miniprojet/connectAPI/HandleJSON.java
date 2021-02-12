@@ -59,7 +59,7 @@ public class HandleJSON {
                 String humidity = main.getString("humidity") + "%";
                 String pressure = main.getString("pressure") + " hPa";
                 long dt = jsonWeather.getLong("dt");
-                System.out.println("----------------dt : " + dt);
+                //System.out.println("----------------dt : " + dt);
                 String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((long) dt * 1000));
                 Date date1 = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(date);
                 DateFormat format2 = new SimpleDateFormat("HH:mm");
@@ -69,9 +69,9 @@ public class HandleJSON {
                 //String iconeText = setWeatherIcon(details.getInt("id"),jsonWeather.getJSONObject("sys").getLong("sunrise")*1000, jsonWeather.getJSONObject("sys").getLong("sunset")*1000);
                 String iconeText = details.getString("icon");
                 int visibility = jsonWeather.getInt("visibility") / 1000;
-                System.out.println("---------visibilite : " + visibility + "km");
+                //System.out.println("---------visibilite : " + visibility + "km");
                 double vent = wind.getDouble("speed");
-                System.out.println("-------------vent : " + vent + " km/h");
+                //System.out.println("-------------vent : " + vent + " km/h");
                 jsonData[0] = city;
                 jsonData[1] = description;
                 jsonData[2] = temperature;

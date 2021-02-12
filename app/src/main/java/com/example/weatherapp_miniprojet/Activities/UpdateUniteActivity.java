@@ -13,6 +13,8 @@ import com.example.weatherapp_miniprojet.R;
 
 public class UpdateUniteActivity extends AppCompatActivity {
     RadioButton metricRadio, imperialRadio;
+    String lati;
+    String longti;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,9 @@ public class UpdateUniteActivity extends AppCompatActivity {
 
         Intent inten = getIntent();
         String unit = inten.getStringExtra("unit");
+        lati = inten.getStringExtra("lat");
+        longti = inten.getStringExtra("long");
+        //Toast.makeText(this, "latitude : "+lati+" longitud : "+longti, Toast.LENGTH_SHORT).show();
         if (unit.equals("metric")){
             metricRadio.setChecked(true);
             imperialRadio.setChecked(false);
@@ -49,9 +54,13 @@ public class UpdateUniteActivity extends AppCompatActivity {
     }
 
     void startActivityAcceuil(String unitee){
+        System.out.println("---------latituude : "+lati+" mongitude : "+longti);
         finish();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("unite", unitee);
+
+        intent.putExtra("latit", lati);
+        intent.putExtra("longti", longti);
         startActivity(intent);
     }
 }

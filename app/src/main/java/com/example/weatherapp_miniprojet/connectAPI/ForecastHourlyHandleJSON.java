@@ -17,23 +17,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ForecastHourlyHandleJSON {
-    private static final String OPEN_WEATHER_MAP_URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric";
+    private static final String OPEN_WEATHER_MAP_URL_FORECAST = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=%s";
     private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
 
-    public static ArrayList<PrevisionHoraire> getJSONResponse(String latitude, String longitude) {
+    public static ArrayList<PrevisionHoraire> getJSONResponse(String latitude, String longitude, String unit) {
         ArrayList<PrevisionHoraire> listP = new ArrayList<>();
         JSONObject jsonWeather = null;
         try {
-            jsonWeather = getWeatherJSON(latitude, longitude);
+            jsonWeather = getWeatherJSON(latitude, longitude,unit);
         } catch (Exception e) {
             Log.d("Error", "impossible de traiter le résultat json", e);
         }
         try {
             if (jsonWeather != null) {
-                System.out.println("-----------sucess----------");
+                //System.out.println("-----------sucess----------");
 
                 JSONArray list = jsonWeather.getJSONArray("list");
-                System.out.println("----------length : " + list.length());
+                //System.out.println("----------length : " + list.length());
 
                 for (int i = 0; i < list.length(); i++) {
 
@@ -68,14 +68,14 @@ public class ForecastHourlyHandleJSON {
         return listP;
     }
 
-    public static JSONObject getWeatherJSON(String lat, String lon) {
+    public static JSONObject getWeatherJSON(String lat, String lon, String unit) {
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL_FORECAST, lat, lon));
+            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL_FORECAST, lat, lon, unit));
             // System.out.println("----------url :"+url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             // openConnection() : Renvoie une instance URLConnection qui représente une connexion à l'objet distant référencé par l'URL.
             connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
-            System.out.println("----------url prevision horaire :" + connection.getURL());
+            //System.out.println("----------url prevision horaire :" + connection.getURL());
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
@@ -94,7 +94,7 @@ public class ForecastHourlyHandleJSON {
                 System.out.println("----------echec---------");
                 return null;
             }
-            System.out.println("----------okkkkkkkk---------");
+            //System.out.println("----------okkkkkkkk---------");
             return data;
         } catch (Exception e) {
             e.printStackTrace();

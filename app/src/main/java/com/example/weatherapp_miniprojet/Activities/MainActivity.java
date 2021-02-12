@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     ImageButton btn_back_listFav;
     static String latitude;
     static String longitude;
+    boolean valid;
 
     RelativeLayout previsionHoriare, previsionDay, headerLayout, errorLayout;
 
@@ -135,9 +136,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 //overridePendingTransition(0, 0);
             }
         });
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // setFlags() : Définissez les indicateurs de la fenêtre.
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         getSupportActionBar().hide();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -147,12 +148,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         //Value Gotten From VilleFavouie Activity
         Intent intent = getIntent();
         String unitee = intent.getStringExtra("unite");
-        if (unitee != null) {
-            unit = unitee;
-            Toast.makeText(this, "Unité : " + unitee, Toast.LENGTH_LONG).show();
-        }
         String getVille = intent.getStringExtra("ville");
         if (getVille != null) {
+
             previsionDay.setVisibility(View.VISIBLE);
             previsionHoriare.setVisibility(View.VISIBLE);
             headerLayout.setVisibility(View.VISIBLE);
@@ -170,7 +168,22 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             } catch (JSONException exception) {
                 exception.printStackTrace();
             }
-        } else {
+        } else if (unitee != null) {
+            unit = unitee;
+            latitude = intent.getStringExtra("latit");
+            longitude = intent.getStringExtra("longti");
+            previsionDay.setVisibility(View.VISIBLE);
+            previsionHoriare.setVisibility(View.VISIBLE);
+            headerLayout.setVisibility(View.VISIBLE);
+            btnVille.setVisibility(View.VISIBLE);
+           // btnVille.setVisibility(View.GONE);
+            btn_back_listFav.setVisibility(View.VISIBLE);
+            results(latitude, longitude, unit);
+            Toast.makeText(this, "latitude : " + latitude + " longitude : " + longitude, Toast.LENGTH_LONG).show();
+            System.out.println("main activity ---------latitude : " + latitude + " longitude : " + longitude);
+            //Toast.makeText(this, "Unité : " + unitee, Toast.LENGTH_LONG).show();
+
+        }else{
             boolean connected = checkInternet();
             if (connected) {
                 previsionDay.setVisibility(View.VISIBLE);
@@ -220,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             uniteChal = " °F";
         }
 
-        ArrayList<Prevision> jsonDataForecast = ForecastHandleJSON.getJSONResponse(latitude, longitude);
+        ArrayList<Prevision> jsonDataForecast = ForecastHandleJSON.getJSONResponse(latitude, longitude, unit);
         Picasso.get().load(IMG_URL + jsonDataForecast.get(0).getIcon() + ".png").resize(100, 100).into(img_meteo);
         pre_meteo.setText(jsonDataForecast.get(0).getJour());
         Picasso.get().load(IMG_URL + jsonDataForecast.get(1).getIcon() + ".png").resize(100, 100).into(img_meteo1);
@@ -246,7 +259,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         temp_max5.setText(jsonDataForecast.get(5).getTempMax() + uniteChal);
         temp_min5.setText(jsonDataForecast.get(5).getTempMin() + uniteChal);
 
-        ArrayList<PrevisionHoraire> jsonDataForecastHourly = ForecastHourlyHandleJSON.getJSONResponse(latitude, longitude);
+        ArrayList<PrevisionHoraire> jsonDataForecastHourly = ForecastHourlyHandleJSON.getJSONResponse(latitude, longitude, unit);
         pre_hor.setText(jsonDataForecastHourly.get(0).getHeure());
         Picasso.get().load(IMG_URL + jsonDataForecastHourly.get(0).getIcon() + ".png").resize(100, 100).into(img_hor);
         temp_hor.setText(jsonDataForecastHourly.get(0).getTemperature() + uniteChal);
@@ -288,6 +301,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 finish();
                 Intent updateUnitIntent = new Intent(getApplicationContext(), UpdateUniteActivity.class);
                 updateUnitIntent.putExtra("unit", unit);
+                updateUnitIntent.putExtra("lat", latitude);
+                updateUnitIntent.putExtra("long", longitude);
                 startActivity(updateUnitIntent);
                 //Toast.makeText(this, "changer unité", Toast.LENGTH_SHORT).show();
                 return true;

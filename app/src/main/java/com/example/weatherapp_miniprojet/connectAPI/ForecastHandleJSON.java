@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ForecastHandleJSON {
-    private static final String OPEN_WEATHER_MAP_URL_FORECAST = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&exclude=hourly,current,minutely,alerts&units=metric";
+    private static final String OPEN_WEATHER_MAP_URL_FORECAST = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&units=%s&exclude=hourly,current,minutely,alerts";
     private static final String OPEN_WEATHER_MAP_API = "88f399bec2c33cb721b859e49d93b9dd";
 
-    public static ArrayList<Prevision> getJSONResponse(String latitude, String longitude) {
+    public static ArrayList<Prevision> getJSONResponse(String latitude, String longitude, String unit) {
         //String[] jsonData = new String[2];
         ArrayList<Prevision> listP = new ArrayList<>();
         JSONObject jsonWeather = null;
         try {
-            jsonWeather = getWeatherJSON(latitude, longitude);
+            jsonWeather = getWeatherJSON(latitude, longitude, unit);
         } catch (Exception e) {
             Log.d("Error", "impossible de traiter le résultat json", e);
         }
@@ -36,7 +36,7 @@ public class ForecastHandleJSON {
                 //Recuperation des données
 
                 JSONArray daily = jsonWeather.getJSONArray("daily");
-                System.out.println("----------length : " + daily.length());
+                //System.out.println("----------length : " + daily.length());
                 for (int i = 0; i < daily.length(); i++) {
                     int dt = daily.getJSONObject(i).getInt("dt");
                     String date = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date((long) dt * 1000));
@@ -69,14 +69,14 @@ public class ForecastHandleJSON {
         return listP;
     }
 
-    public static JSONObject getWeatherJSON(String lat, String lon) {
+    public static JSONObject getWeatherJSON(String lat, String lon, String unit) {
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL_FORECAST, lat, lon));
+            URL url = new URL(String.format(OPEN_WEATHER_MAP_URL_FORECAST, lat, lon, unit));
             // System.out.println("----------url :"+url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             // openConnection() : Renvoie une instance URLConnection qui représente une connexion à l'objet distant référencé par l'URL.
             connection.addRequestProperty("x-api-key", OPEN_WEATHER_MAP_API);
-            System.out.println("----------url :" + connection.getURL());
+            //System.out.println("----------url :" + connection.getURL());
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
